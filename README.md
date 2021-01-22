@@ -5,9 +5,9 @@
 
 # Advantages of Design Pattern:-
 	
-		1. A Design Pattern are *well- proved Solution for solving a specific problem.
+		1. A Design Pattern are *well- proved Solution for solving a specific problem.*
 		2. The benefits lies in Reuability and extensibility of already developed applications.
-		3. DP uses Objec-Oriented concepts like decomposition, inheritence, polymorphism.
+		3. DP uses Object-Oriented concepts like decomposition, inheritence, polymorphism.
 		
 # Diadvantages of Design Pattern:
 			
@@ -17,16 +17,49 @@
 # Creational Design Pattern
 </br>
 ## Singleton- 
+	Singleton Pattern says that just"define a class that has only one instance and provides a global point of access to it"
 
-It insures that only one instance is created and provide global point to access it.
-Versions of Singleton:
+	Versions of Singleton:
 	1. Eager Initialization
 	2. Lazy  Initialization
 	3. Lazy Initialization with private constructor and synchronized method
 	4. Enum Singleton - The prefer way.
+	[Ref](https://github.com/girirajvyas/gof-design-patterns#1-singleton-pattern-gem)
+	
+	Advantage of Singleton design pattern:
+	1. Saves memory because object is not created at each request. Only single instance is reused again and again.
+	2. instantiation overhead is avoided
+	3.  Flexibility: Since the class controls the instantiation process, the class has the flexibility to change the instantiation process.
+	
+	Disadvantages:
+	1. Singletons hinder unit testing - A Singleton might cause issues for writing testable code if the object and the methods associated with it are so tightly coupled that it becomes impossible to test without writing a fully-functional class dedicated to the Singleton.
+	2. They inherently cause code to be tightly coupled. 
+	
+	Real time usages:
+	Typically singletons are used for global configuration. The simplest example would be LogManager - there's a static **LogManager.getLogManager()** method, and a single global instance is used.
+	Other examples:- java.lang.Runtime, java.awt.Desktop.
+	
+	Project example:- 
 	
 ##Builder Pattern-
-Seperate the construction of complex object from its representation(Builds an complex object using a simple class step by step)
+	
+	Seperate the construction of complex objects from its representation so that the same construction process can be used to create different representation.
+
+	example from java-
+	java.lang.StringBuilder#append() (unsynchronized)
+	java.lang.StringBuffer#append() (synchronized)
+
+	append() method is present in abstract class AbstractStringBuilder, and being used in StringBuilder and String Buffer and creates 2 diff representations.
+
+	Real world example - Two Different version of a burger. One is veggie berger another one is classic cheese burger.
+	Representation - ow our product looks at the end when it is ready. For instance first there is a bread, then patty on top it followed by some veggies, then some sauces and at the end finished off with final layer of bread.
+	Construction- For example baking a bread, making burger patty, making different sauces, cutting of vegetables etc.
+
+	Project example:
+	So in our project, there is a abstract class called AbstractOnlineRemoteService which defined the basic fuctionality for Online Remote.
+	Now according to acuirer requirements, each acquirer override some method to provide their own representation.
+
+
 ```java
 eg:- 
 Class Phone{
@@ -55,15 +88,42 @@ class shop
 Phone P = new PhoneBuilder().setProcessor("Andrioid").setOS("ABC").getPhone();
 
 ```
+
+##	Advantages
+	Allows you to vary a product’s internal representation.
+	Encapsulates code for construction and representation.
+	Provides control over steps of construction process.
+	
+## Disadvantages
+	Data members of class aren’t guaranteed to be initialized.
+	The number of lines of code increase at least to double in builder pattern, but the effort pays off in terms of design flexibility and much more readable code.
+	
 [Ref](https://www.youtube.com/watch?v=k4EkJgY9P4c&list=PLsyeobzWxl7r2ZX1fl-7CKnayxHJA_1ol&index=5)
 
 ##Factory pattern
-We create object without exposing the creation logic to the client ans refer the newely created object using a common interface.
-1) Create an interface shape and a method draw().
-2) Create 3 class rectangle, Circle , Square and override draw()
-3) create a Factory class and a method getShape(Shape)
-4) Create Implementation class in which call new Factory().getShape("Circle");
-[Ref](https://www.tutorialspoint.com/design_pattern/factory_pattern.htm )
+	IT is also known as Virtual Constructor.
+	*Factory Method Pattern says that just define an interface or abstract class for creating an object but let the subclasses decide which class to instantiate*
+		OR
+	*We create object without exposing the creation logic to the client and refer the newely created object using a common interface.*
+
+	1) Create an interface shape and a method draw().
+	2) Create 3 class rectangle, Circle , Square and override draw()
+	3) create a Factory class and a method getShape(Shape)
+	4) Create Implementation class in which call new Factory().getShape("Circle");
+	[Ref](https://www.tutorialspoint.com/design_pattern/factory_pattern.htm )
+
+	In java -
+		1. **getInstance()** method of java.util.Calendar, NumberFormat, and ResourceBundle uses factory method design pattern. 
+		2. all the wrapper classes like Integer, Boolean etc, in Java uses this pattern to evaluate the values using **valueOf()** method. 
+		
+	From Project:-
+	We have RequExecutorFactor(interface) and with the help of this factory we instantiate different acquirer executor factory like OpnBkngPaymentExecutorFactory
+
+	Advantages:
+	1. Factory design pattern provides approach to code for interface rather than implementation.
+
+	DrawBacks:
+	1. A potential disadvantage of Factory methods is that clients might have to sub-class the creator class just to create a particular concrete product object.
 
 # Structural Design Pattern
 
