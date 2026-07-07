@@ -198,6 +198,48 @@ public Class ClaimsCalculator{
 	- Advantage:
 	1. As seen from above we need not touch the claimsCalculator class even if we create two different object having two different implementations.
 	2. In futre if a new feild added in the claimsCalculator, we need not to go to implemented class and changes anything, we just need to change the claimsCalculator class and provide the logic there, and use it whereever applicable.
+
+### Another Example:
+	public class ApiResponse {
+
+    private final int status;
+    private final String message;
+    private final Object data;
+
+    private ApiResponse(Builder builder) {
+        this.status = builder.status;
+        this.message = builder.message;
+        this.data = builder.data;
+    }
+
+    public static class Builder {
+
+        private int status;
+        private String message;
+        private Object data;
+
+        public Builder status(int status) {
+            this.status = status;
+            return this;
+        }
+
+        public Builder message(String message) {
+            this.message = message;
+            return this;
+        }
+
+        public Builder data(Object data) {
+            this.data = data;
+            return this;
+        }
+
+        public ApiResponse build() {
+            return new ApiResponse(this);
+        }
+    }
+    }
+   
+   "The Builder Pattern is a creational design pattern used to construct complex objects step by step. Instead of passing many constructor arguments, it provides a fluent API where each field is set through chained methods, and the object is created by calling build(). This improves readability, avoids constructor parameter order mistakes, supports optional fields, and works well with immutable objects. In Spring Boot projects, we commonly use Lombok's @Builder annotation to generate builder code automatically."
 	
 [VideoRed](https://www.youtube.com/watch?v=PWOgZ4EYtlM)
 
