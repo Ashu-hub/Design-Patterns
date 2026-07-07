@@ -26,7 +26,7 @@
 		- Builder DP
 		- Factory DP
 		- Abstract Factory DP
-		- Prototype DP
+		- Prototype DP - less used
 	
 	2.	Structural Design Pattern- (7)
 		- Adapter DP
@@ -38,11 +38,12 @@
 		- Flyweight DP
 		
 	3. Behavioral DP - (11)
+		- Strategy DP
+		- Observer DP
 		- Chain of Responsibility DP
 		- Command DP
-		- Observer DP
 		- Iterator DP
-		- Strategy DP
+		
 		
 		
 # Creational Design Pattern
