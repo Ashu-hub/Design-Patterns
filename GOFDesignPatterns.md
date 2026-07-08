@@ -366,6 +366,11 @@ public Class ClaimsCalculator{
 	Abstract Factory: Creates a family of related products.
 	Example: UIFactory creates Button, Checkbox, and TextBox that all belong to the same theme (Windows or Mac).
 
+	| Provider | Payment       | Refund       | Receipt       |
+	| -------- | ------------- | ------------ | ------------- |
+	| Stripe   | StripePayment | StripeRefund | StripeReceipt |
+	| PayPal   | PayPalPayment | PayPalRefund | PayPalReceipt |
+
 		// Product Interfaces
 	interface Payment {
 	    void pay();
