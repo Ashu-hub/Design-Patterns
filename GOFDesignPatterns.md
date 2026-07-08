@@ -1084,6 +1084,72 @@ public Class ClaimsCalculator{
 	[REF](https://www.tutorialspoint.com/design_pattern/composite_pattern.htm )
 	Example:-
 	Heirarchy of Organisation.
+	import java.util.ArrayList;
+	import java.util.List;
+	
+	// Component
+	interface Employee {
+	    void showDetails();
+	}
+	
+	// Leaf
+	class Developer implements Employee {
+	
+	    private String name;
+	
+	    public Developer(String name) {
+	        this.name = name;
+	    }
+	
+	    @Override
+	    public void showDetails() {
+	        System.out.println("Developer : " + name);
+	    }
+	}
+	
+	// Composite
+	class Manager implements Employee {
+	
+	    private String name;
+	    private List<Employee> team = new ArrayList<>();
+	
+	    public Manager(String name) {
+	        this.name = name;
+	    }
+	
+	    public void addEmployee(Employee employee) {
+	        team.add(employee);
+	    }
+	
+	    @Override
+	    public void showDetails() {
+	
+	        System.out.println("Manager : " + name);
+	
+	        for (Employee employee : team) {
+	            employee.showDetails();
+	        }
+	    }
+	}
+	
+	// Client
+	public class CompositeDemo {
+	
+	    public static void main(String[] args) {
+	
+	        Employee emp1 = new Developer("John");
+	        Employee emp2 = new Developer("David");
+	        Employee emp3 = new Developer("Alice");
+	
+	        Manager manager = new Manager("Raj");
+	
+	        manager.addEmployee(emp1);
+	        manager.addEmployee(emp2);
+	        manager.addEmployee(emp3);
+	
+	        manager.showDetails();
+	    }
+	}
 	
 	
 # Behavioral Design Pattern
