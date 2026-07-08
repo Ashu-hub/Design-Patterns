@@ -1159,4 +1159,96 @@ public Class ClaimsCalculator{
 	The chain of responsibility pattern creates a chain of receiver objects for a request. This pattern decouples sender and receiver of a request based on type of request.
 	In this pattern, normally , each receiver contains the refernce of another receiver. If one receover cant handle a request, it just passes it to anothet receiver.and so on.
 	one or more than one receiver can handle a request.
+
+	/*
+	=========================================================
+	CHAIN OF RESPONSIBILITY PATTERN
+	=========================================================
 	
+	Problem:
+	--------
+	An expense approval request should go through multiple levels.
+	
+	Employee  -> can approve up to ₹1,000
+	Manager   -> can approve up to ₹10,000
+	Director  -> can approve anything above ₹10,000
+	
+	If one person cannot approve, the request is passed
+	to the next approver.
+	
+	=========================================================
+	*/
+	
+	// Handler
+	abstract class Approver {
+	
+	    protected Approver nextApprover;
+	
+	    public void setNextApprover(Approver nextApprover) {
+	        this.nextApprover = nextApprover;
+	    }
+	
+	    public abstract void approve(int amount);
+	}
+	
+	// Concrete Handler 1
+	class Employee extends Approver {
+	
+	    @Override
+	    public void approve(int amount) {
+	
+	        if (amount <= 1000) {
+	            System.out.println("Employee approved ₹" + amount);
+	        } else {
+	            nextApprover.approve(amount);
+	        }
+	    }
+	}
+	
+	// Concrete Handler 2
+	class Manager extends Approver {
+	
+	    @Override
+	    public void approve(int amount) {
+	
+	        if (amount <= 10000) {
+	            System.out.println("Manager approved ₹" + amount);
+	        } else {
+	            nextApprover.approve(amount);
+	        }
+	    }
+	}
+	
+	// Concrete Handler 3
+	class Director extends Approver {
+	
+	    @Override
+	    public void approve(int amount) {
+	
+	        System.out.println("Director approved ₹" + amount);
+	    }
+	}
+	
+	// Client
+	public class ChainOfResponsibilityDemo {
+	
+	    public static void main(String[] args) {
+	
+	        Approver employee = new Employee();
+	        Approver manager = new Manager();
+	        Approver director = new Director();
+	
+	        // Create the chain
+	        employee.setNextApprover(manager);
+	        manager.setNextApprover(director);
+	
+	        employee.approve(500);
+	        employee.approve(7000);
+	        employee.approve(50000);
+	    }
+	}
+
+	//Output
+	Employee approved ₹500
+	Manager approved ₹7000
+	Director approved ₹50000
