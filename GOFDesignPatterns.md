@@ -520,6 +520,169 @@ public Class ClaimsCalculator{
 	**Applicability**
 	- Use the Adapter class when you want to use some existing class, but its interface isn’t compatible with the rest of your code.
 	- When we want to reuse legacy code in our application without making any modification in the original code.
+	/*
+	===========================================
+	ADAPTER DESIGN PATTERN
+	===========================================
+	
+	Definition:
+	-----------
+	The Adapter Pattern is a Structural Design Pattern that allows two
+	incompatible interfaces to work together by converting the interface
+	of one class into another interface expected by the client.
+	
+	Real-life Example:
+	------------------
+	Indian Charger ---> Travel Adapter ---> US Socket
+	
+	Software Example:
+	-----------------
+	Our application expects every payment gateway to have a method:
+	
+	    pay(amount)
+	
+	But a third-party Stripe library provides:
+	
+	    makePayment(amount)
+	
+	Since we cannot modify the third-party library, we create an Adapter
+	that converts pay() into makePayment().
+	
+	===========================================
+	Code
+	===========================================
+	*/
+	
+	// Target Interface (Expected by the Client)
+	interface PaymentGateway {
+	    void pay(double amount);
+	}
+	
+	// Adaptee (Third-party library - cannot modify)
+	class StripeAPI {
+	
+	    public void makePayment(double amount) {
+	        System.out.println("Processing payment through Stripe: " + amount);
+	    }
+	}
+	
+	// Adapter
+	class StripeAdapter implements PaymentGateway {
+	
+	    private StripeAPI stripeAPI = new StripeAPI();
+	
+	    @Override
+	    public void pay(double amount) {
+	        stripeAPI.makePayment(amount);
+	    }
+	}
+	
+	// Client
+	public class AdapterPatternDemo {
+	
+	    public static void main(String[] args) {
+	
+	        PaymentGateway gateway = new StripeAdapter();
+	
+	        gateway.pay(5000);
+	
+	    }
+	}
+	
+	/*
+	===========================================
+	Output
+	===========================================
+	
+	Processing payment through Stripe: 5000.0
+	
+	===========================================
+	Flow
+	===========================================
+	
+	Client
+	   |
+	   v
+	PaymentGateway (Target Interface)
+	   |
+	   v
+	StripeAdapter
+	   |
+	   v
+	StripeAPI (Adaptee)
+	
+	Client calls:
+	
+	gateway.pay(5000);
+	
+	Adapter internally calls:
+	
+	stripeAPI.makePayment(5000);
+	
+	===========================================
+	When to Use Adapter Pattern
+	===========================================
+	
+	1. Integrating third-party libraries.
+	   Example:
+	   - Stripe
+	   - PayPal
+	   - Razorpay
+	
+	2. Working with legacy code that cannot be modified.
+	
+	3. Two classes have incompatible interfaces.
+	
+	4. Reusing existing code without changing it.
+	
+	===========================================
+	Real Java Examples
+	===========================================
+	
+	1. InputStreamReader
+	   Converts InputStream (bytes) to Reader (characters).
+	
+	2. Arrays.asList()
+	   Converts an array into a List.
+	
+	3. Collections.list()
+	   Converts Enumeration into a List.
+	
+	===========================================
+	Interview Definition
+	===========================================
+	
+	The Adapter Pattern is a Structural Design Pattern that allows two
+	incompatible interfaces to work together by wrapping an existing class
+	and exposing the interface expected by the client.
+	
+	===========================================
+	Memory Trick
+	===========================================
+	
+	Travel Plug Adapter
+	
+	Indian Charger
+	      |
+	      v
+	Travel Adapter
+	      |
+	      v
+	US Socket
+	
+	Adapter = Translator
+	*/
+
+###When should you use Adapter?
+	
+	Use it when:
+	
+	You're integrating a third-party library.
+	You can't modify existing code.
+	Two classes have incompatible interfaces.
+	You want to reuse legacy code without changing it.
+
+	
 ## Decorator DP:-
 	
 	This DP allows us to add new functionality to an existing object without altering its structure.
