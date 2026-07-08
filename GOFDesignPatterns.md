@@ -357,7 +357,152 @@ public Class ClaimsCalculator{
 	
 
 ## Abstract Factory Pattern -
+	Abstract Factory Pattern is a creational design pattern that provides an interface for creating families of related or dependent objects without specifying their concrete classes.
 
+	A common way to distinguish the two patterns is:
+	
+	Factory Method: Creates one product.
+	Example: NotificationFactory.createNotification()
+	Abstract Factory: Creates a family of related products.
+	Example: UIFactory creates Button, Checkbox, and TextBox that all belong to the same theme (Windows or Mac).
+
+		// Product Interfaces
+	interface Payment {
+	    void pay();
+	}
+	
+	interface Refund {
+	    void refund();
+	}
+	
+	interface Receipt {
+	    void generateReceipt();
+	}
+	
+	// =======================
+	// Stripe Implementations
+	// =======================
+	
+	class StripePayment implements Payment {
+	    @Override
+	    public void pay() {
+	        System.out.println("Processing payment using Stripe");
+	    }
+	}
+	
+	class StripeRefund implements Refund {
+	    @Override
+	    public void refund() {
+	        System.out.println("Refunding using Stripe");
+	    }
+	}
+	
+	class StripeReceipt implements Receipt {
+	    @Override
+	    public void generateReceipt() {
+	        System.out.println("Generating Stripe receipt");
+	    }
+	}
+	
+	// =======================
+	// PayPal Implementations
+	// =======================
+	
+	class PaypalPayment implements Payment {
+	    @Override
+	    public void pay() {
+	        System.out.println("Processing payment using PayPal");
+	    }
+	}
+	
+	class PaypalRefund implements Refund {
+	    @Override
+	    public void refund() {
+	        System.out.println("Refunding using PayPal");
+	    }
+	}
+	
+	class PaypalReceipt implements Receipt {
+	    @Override
+	    public void generateReceipt() {
+	        System.out.println("Generating PayPal receipt");
+	    }
+	}
+	
+	// =======================
+	// Abstract Factory
+	// =======================
+	
+	interface PaymentFactory {
+	
+	    Payment createPayment();
+	
+	    Refund createRefund();
+	
+	    Receipt createReceipt();
+	}
+	
+	// =======================
+	// Concrete Factories
+	// =======================
+	
+	class StripeFactory implements PaymentFactory {
+	
+	    @Override
+	    public Payment createPayment() {
+	        return new StripePayment();
+	    }
+	
+	    @Override
+	    public Refund createRefund() {
+	        return new StripeRefund();
+	    }
+	
+	    @Override
+	    public Receipt createReceipt() {
+	        return new StripeReceipt();
+	    }
+	}
+	
+	class PaypalFactory implements PaymentFactory {
+	
+	    @Override
+	    public Payment createPayment() {
+	        return new PaypalPayment();
+	    }
+	
+	    @Override
+	    public Refund createRefund() {
+	        return new PaypalRefund();
+	    }
+	
+	    @Override
+	    public Receipt createReceipt() {
+	        return new PaypalReceipt();
+	    }
+	}
+	
+	// =======================
+	// Client
+	// =======================
+	
+	public class AbstractFactoryDemo {
+	
+	    public static void main(String[] args) {
+	
+	        // Change only this line to switch provider
+	        PaymentFactory factory = new StripeFactory();
+	        // PaymentFactory factory = new PaypalFactory();
+	
+	        Payment payment = factory.createPayment();
+	        Refund refund = factory.createRefund();
+	        Receipt receipt = factory.createReceipt();
+	
+	        payment.pay();
+	        refund.refund();
+	        receipt.generateReceipt();
+	    }
+	}
 
 # Structural Design Pattern
 
