@@ -1160,6 +1160,14 @@ public Class ClaimsCalculator{
 	In this pattern, normally , each receiver contains the refernce of another receiver. If one receover cant handle a request, it just passes it to anothet receiver.and so on.
 	one or more than one receiver can handle a request.
 
+
+	Chain of Responsibility (CoR) is a behavioral design pattern that passes a request through a chain of handlers. Each handler decides whether it can process the request or pass it to the next handler.
+	
+	Simple Definition
+	
+	**A request travels through multiple handlers until one of them handles it.**
+	
+	Think of it as "If I can't handle it, I'll pass it to the next person."
 	/*
 	=========================================================
 	CHAIN OF RESPONSIBILITY PATTERN
