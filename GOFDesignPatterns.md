@@ -928,6 +928,92 @@ public Class ClaimsCalculator{
 
 	
 ## Decorator DP:-
+		// Component
+	interface Coffee {
+	    String getDescription();
+	    double getCost();
+	}
+	
+	// Concrete Component
+	class SimpleCoffee implements Coffee {
+	
+	    @Override
+	    public String getDescription() {
+	        return "Simple Coffee";
+	    }
+	
+	    @Override
+	    public double getCost() {
+	        return 100;
+	    }
+	}
+	
+	// Base Decorator
+	abstract class CoffeeDecorator implements Coffee {
+	
+	    protected Coffee coffee;
+	
+	    public CoffeeDecorator(Coffee coffee) {
+	        this.coffee = coffee;
+	    }
+	}
+	
+	// Milk Decorator
+	class MilkDecorator extends CoffeeDecorator {
+	
+	    public MilkDecorator(Coffee coffee) {
+	        super(coffee);
+	    }
+	
+	    @Override
+	    public String getDescription() {
+	        return coffee.getDescription() + ", Milk";
+	    }
+	
+	    @Override
+	    public double getCost() {
+	        return coffee.getCost() + 20;
+	    }
+	}
+	
+	// Sugar Decorator
+	class SugarDecorator extends CoffeeDecorator {
+	
+	    public SugarDecorator(Coffee coffee) {
+	        super(coffee);
+	    }
+	
+	    @Override
+	    public String getDescription() {
+	        return coffee.getDescription() + ", Sugar";
+	    }
+	
+	    @Override
+	    public double getCost() {
+	        return coffee.getCost() + 10;
+	    }
+	}
+	
+	// Client
+	public class DecoratorPatternDemo {
+	
+	    public static void main(String[] args) {
+	
+	        Coffee coffee = new SimpleCoffee();
+	
+	        coffee = new MilkDecorator(coffee);
+	
+	        coffee = new SugarDecorator(coffee);
+	
+	        System.out.println(coffee.getDescription());
+	
+	        System.out.println("Cost = " + coffee.getCost());
+	    }
+	}
+	
+		Output:
+		Simple Coffee, Milk, Sugar
+		Cost = 130.0
 	
 	This DP allows us to add new functionality to an existing object without altering its structure.
 	This Pattern creats a dacorator class which wraps around original class and provides additional functionality keeping clas method signature intact.
