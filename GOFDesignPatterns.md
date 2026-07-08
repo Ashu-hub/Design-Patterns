@@ -682,6 +682,250 @@ public Class ClaimsCalculator{
 	Two classes have incompatible interfaces.
 	You want to reuse legacy code without changing it.
 
+
+## Bridge Pattern:
+	The Bridge Design Pattern is a structural design pattern that separates an abstraction from its implementation so that both can vary independently. 
+	
+		/*
+	=========================================================
+	BRIDGE PATTERN - Shape & Color Example
+	=========================================================
+	
+	Problem
+	-------
+	
+	Suppose we have:
+	
+	Shapes
+	------
+	Circle
+	Square
+	
+	Colors
+	------
+	Red
+	Blue
+	
+	Without Bridge, we'd need:
+	
+	RedCircle
+	BlueCircle
+	RedSquare
+	BlueSquare
+	
+	If tomorrow Green is added:
+	
+	GreenCircle
+	GreenSquare
+	
+	More shapes or colors means more classes.
+	
+	Bridge separates Shape and Color.
+	
+	=========================================================
+	*/
+	
+	// Step 1: Implementor
+	interface Color {
+	    void applyColor();
+	}
+	
+	// Step 2: Concrete Implementations
+	class RedColor implements Color {
+	
+	    @Override
+	    public void applyColor() {
+	        System.out.println("Applying Red Color");
+	    }
+	}
+	
+	class BlueColor implements Color {
+	
+	    @Override
+	    public void applyColor() {
+	        System.out.println("Applying Blue Color");
+	    }
+	}
+	
+	// Step 3: Abstraction
+	abstract class Shape {
+	
+	    protected Color color;
+	
+	    public Shape(Color color) {
+	        this.color = color;
+	    }
+	
+	    abstract void draw();
+	}
+	
+	// Step 4: Refined Abstractions
+	class Circle extends Shape {
+	
+	    public Circle(Color color) {
+	        super(color);
+	    }
+	
+	    @Override
+	    void draw() {
+	        System.out.print("Drawing Circle - ");
+	        color.applyColor();
+	    }
+	}
+	
+	class Square extends Shape {
+	
+	    public Square(Color color) {
+	        super(color);
+	    }
+	
+	    @Override
+	    void draw() {
+	        System.out.print("Drawing Square - ");
+	        color.applyColor();
+	    }
+	}
+	
+	// Step 5: Client
+	public class BridgePatternDemo {
+	
+	    public static void main(String[] args) {
+	
+	        Shape redCircle = new Circle(new RedColor());
+	
+	        Shape blueCircle = new Circle(new BlueColor());
+	
+	        Shape redSquare = new Square(new RedColor());
+	
+	        Shape blueSquare = new Square(new BlueColor());
+	
+	        redCircle.draw();
+	        blueCircle.draw();
+	        redSquare.draw();
+	        blueSquare.draw();
+	
+	    }
+	
+	}
+	
+	/*
+	=========================================================
+	Output
+	=========================================================
+	
+	Drawing Circle - Applying Red Color
+	Drawing Circle - Applying Blue Color
+	Drawing Square - Applying Red Color
+	Drawing Square - Applying Blue Color
+	
+	=========================================================
+	Class Diagram
+	=========================================================
+	
+	            Shape
+	              |
+	      ----------------
+	      |              |
+	   Circle         Square
+	      |
+	      |
+	     Color
+	    /     \
+	 RedColor BlueColor
+	
+	
+	Shape HAS-A Color
+	
+	NOT
+	
+	Circle extends RedCircle
+	
+	=========================================================
+	Why Bridge?
+	=========================================================
+	
+	Without Bridge
+	
+	RedCircle
+	BlueCircle
+	GreenCircle
+	
+	RedSquare
+	BlueSquare
+	GreenSquare
+	
+	6 classes
+	
+	If Triangle is added
+	
+	RedTriangle
+	BlueTriangle
+	GreenTriangle
+	
+	Now 9 classes
+	
+	With Bridge
+	
+	Shapes
+	------
+	Circle
+	Square
+	Triangle
+	
+	Colors
+	------
+	Red
+	Blue
+	Green
+	
+	Only
+	
+	3 + 3 = 6 classes
+	
+	instead of
+	
+	3 × 3 = 9 classes
+	
+	=========================================================
+	When to use?
+	=========================================================
+	
+	Whenever TWO things change independently.
+	
+	Examples
+	
+	Shape + Color
+	
+	Vehicle + Engine
+	
+	Notification + Sender
+	
+	Remote + Device
+	
+	=========================================================
+	Interview Definition
+	=========================================================
+	
+	Bridge Pattern separates an abstraction (Shape)
+	from its implementation (Color) so that both
+	can vary independently.
+	
+	=========================================================
+	Memory Trick
+	=========================================================
+	
+	Shape
+	  |
+	  +------ HAS -------> Color
+	
+	NOT
+	
+	RedCircle
+	BlueCircle
+	GreenCircle
+	*/
+
+
 	
 ## Decorator DP:-
 	
