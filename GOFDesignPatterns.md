@@ -44,7 +44,15 @@
 		- Command DP
 		- Iterator DP
 		
-		
+# Why we need different Creational DP?
+	| Pattern          | Main Purpose                           | When to Use                      | Real Example                                            |
+	| ---------------- | -------------------------------------- | -------------------------------- | ------------------------------------------------------- |
+	| Singleton        | Only one object                        | Shared resource                  | Logger, Cache, Spring Singleton                         |
+	| Factory Method   | Hide object creation                   | Choose implementation at runtime | Spring `getBean()`, parsers, payment gateways           |
+	| Abstract Factory | Create related object families         | Multiple compatible products     | Windows vs Mac UI, AWS vs Azure services                |
+	| Builder          | Construct complex objects step by step | Many optional fields             | Lombok `@Builder`, HTTP requests, configuration objects |
+	| Prototype        | Copy existing objects                  | Expensive object creation        | Clone documents, game characters, templates             |
+
 		
 # Creational Design Pattern
 </br>
@@ -315,6 +323,38 @@ public Class ClaimsCalculator{
 
 	DrawBacks:
 	1. A potential disadvantage of Factory methods is that clients might have to sub-class the creator class just to create a particular concrete product object.
+
+## another Example:
+	interface Animal{
+    void speak();
+	}
+	
+	class Dog implements Animal{
+	    public void speak(){
+	        System.out.println("Bark");
+	    }
+	}
+	
+	class Cat implements Animal{
+	    public void speak(){
+	        System.out.println("Meow");
+	    }
+	}
+	-----Factory--------
+	class AnimalFactory{
+
+    public static Animal create(String type){
+
+        if(type.equals("DOG"))
+            return new Dog();
+
+        return new Cat();
+    }
+	}
+	-- Use---
+	Animal animal = AnimalFactory.create("DOG");
+	animal.speak();
+	
 
 ## Abstract Factory Pattern -
 
