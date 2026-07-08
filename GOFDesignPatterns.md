@@ -1030,6 +1030,54 @@ public Class ClaimsCalculator{
 	In PP, A class represents functionality of Another CLass. In proxy pattern, we create object having original object to interface its functionality to outer world.
 	[Ref](https://www.tutorialspoint.com/design_pattern/proxy_pattern.htm )
 
+		// Subject
+	interface Internet {
+	    void connect(String website);
+	}
+	
+	// Real Subject
+	class RealInternet implements Internet {
+	
+	    @Override
+	    public void connect(String website) {
+	        System.out.println("Connecting to " + website);
+	    }
+	}
+	
+	// Proxy
+	class ProxyInternet implements Internet {
+	
+	    private RealInternet realInternet = new RealInternet();
+	
+	    @Override
+	    public void connect(String website) {
+	
+	        if (website.equalsIgnoreCase("facebook.com")) {
+	            System.out.println("Access Denied!");
+	            return;
+	        }
+	
+	        realInternet.connect(website);
+	    }
+	}
+	
+	// Client
+	public class ProxyPatternDemo {
+	
+	    public static void main(String[] args) {
+	
+	        Internet internet = new ProxyInternet();
+	
+	        internet.connect("google.com");
+	
+	        internet.connect("facebook.com");
+	    }
+	}
+
+	Output:
+	Connecting to google.com
+	Access Denied!
+
 ##	Composite Design Pattern-
 	
 	Compose objects into tree structures to represent part as-well-as whole hierarchies.
